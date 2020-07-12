@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<style>
+*{box-sizing: border-box;}
+body {
+	background-color: lightblue;
+}
+.e{
+	width:30%;height:30%;
+	background-color:Gray;float:left;
+	margin:8px;
+	border-radius:5px;
+	font-size: 100px;
+	text-align: center;
+	padding: 14.5px 14.5px;
+}
+.e:hover {   
+	background-color:#404040;
+	cursor: default;
+}
+
+</style>
+
+<body>
+
+<div style = "text-align:center;background-color:#cccc00;width:480px;height:480px;margin:0px auto;border-radius: 5px;">
+
+<div class="e" data-p="0" onclick="gogogo(this)"></div>
+<div class="e" data-p="1" onclick="gogogo(this)"></div>
+<div class="e" data-p="2" onclick="gogogo(this)"></div>
+<div class="e" data-p="3" onclick="gogogo(this)"></div>
+<div class="e" data-p="4" onclick="gogogo(this)"></div>
+<div class="e" data-p="5" onclick="gogogo(this)"></div>
+<div class="e" data-p="6" onclick="gogogo(this)"></div>
+<div class="e" data-p="7" onclick="gogogo(this)"></div>
+<div class="e" data-p="8" onclick="gogogo(this)"></div>
+
+</div>
+<div= style = "text-align:center;font-size: 40px;"><p id="finalWinner"></p></div>
+
+<script>
+var ckover = false;
+var BoxStatus = [0,0,0,0,0,0,0,0,0];
+var times = 0,who = 1;
+var resulttxt = document.getElementById('finalWinner');
+
+function gogogo(z){
+	if(!ckover){
+		var whichBoxStr = z.getAttribute("data-p");
+		var whichBox = Number(whichBoxStr);
+		
+		if(BoxStatus[whichBox] == 0){			
+			BoxStatus[whichBox] = who;
+			ckwinner();
+			times++;
+			who++;
+			z.style.backgroundColor = "Gray";
+		}
+		
+		if (BoxStatus[whichBox] == 1)
+			z.innerHTML = "O";		
+		else if(BoxStatus[whichBox] == 2)
+			z.innerHTML = "X";
+			
+		if(times == 9){
+			resulttxt.innerHTML = "tie!";
+			ckwinner();
+		}	
+		if(who > 2)who = 1;
+	}
+}
+function ckwinner(){
+	var q;
+	if(BoxStatus[0]==BoxStatus[1]&&BoxStatus[1]==BoxStatus[2])q = 0;	
+	if(BoxStatus[3]==BoxStatus[4]&&BoxStatus[4]==BoxStatus[5])q = 3;	
+	if(BoxStatus[6]==BoxStatus[7]&&BoxStatus[7]==BoxStatus[8])q = 6;	
+	if(BoxStatus[0]==BoxStatus[3]&&BoxStatus[3]==BoxStatus[6])q = 0;	
+	if(BoxStatus[1]==BoxStatus[4]&&BoxStatus[4]==BoxStatus[7])q = 1;		
+	if(BoxStatus[2]==BoxStatus[5]&&BoxStatus[5]==BoxStatus[8])q = 2;		
+	if(BoxStatus[0]==BoxStatus[4]&&BoxStatus[4]==BoxStatus[8])q = 0;	
+	if(BoxStatus[2]==BoxStatus[4]&&BoxStatus[4]==BoxStatus[6])q = 2;	
+	if(BoxStatus[q] == 1){
+		resulttxt.innerHTML = "O WIN!!";
+		ckover = true;
+	}
+	else if(BoxStatus[q] == 2){
+		resulttxt.innerHTML = "X WIN!!";
+		ckover = true;
+	}		
+}
+</script>
+
+</body>
+</html>
